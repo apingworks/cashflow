@@ -4,28 +4,48 @@
 <meta charset="UTF-8">
 <title>Cashflow Tim</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 body {
   font-family: Arial, sans-serif;
   background: #020d18;
 }
-.box {
+
+/* CONTAINER UTAMA */
+.header {
   max-width: 420px;
   margin: 40px auto;
   background: #ffffff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+  /* KUNCI CENTER */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+/* LOGO */
+.logo {
+  max-width: 110px;
+  margin-bottom: 10px;
+}
+
+/* JUDUL */
 h3 {
   text-align: center;
+  margin-bottom: 15px;
 }
+
+/* FORM */
 input, select, button {
   width: 100%;
   padding: 10px;
   margin-top: 8px;
   font-size: 14px;
 }
+
 button {
   background: #007bff;
   color: white;
@@ -33,9 +53,11 @@ button {
   border-radius: 5px;
   cursor: pointer;
 }
+
 button:hover {
   background: #0056b3;
 }
+
 #status {
   margin-top: 10px;
   text-align: center;
@@ -43,6 +65,7 @@ button:hover {
 }
 </style>
 </head>
+
 <body>
 
 <div class="header">
@@ -67,15 +90,16 @@ button:hover {
 <script>
 function kirim() {
   const data = {
-    tanggal: document.getElementById("tanggal").value,
-    keterangan: document.getElementById("keterangan").value,
-    jenis: document.getElementById("jenis").value,
-    nominal: document.getElementById("nominal").value,
-    penginput: document.getElementById("penginput").value
+    sheet: "CASHFLOW",
+    tanggal: tanggal.value,
+    keterangan: keterangan.value,
+    jenis: jenis.value,
+    nominal: nominal.value,
+    penginput: penginput.value
   };
 
   if (!data.tanggal || !data.keterangan || !data.nominal || !data.penginput) {
-    document.getElementById("status").innerText = "Lengkapi semua data ❌";
+    status.innerText = "Lengkapi semua data ❌";
     return;
   }
 
@@ -84,19 +108,10 @@ function kirim() {
     body: JSON.stringify(data)
   })
   .then(res => res.json())
-  .then(() => {
-    document.getElementById("status").innerText = "Data berhasil disimpan ✅";
-    document.querySelector("form")?.reset();
-  })
-  .catch(() => {
-    document.getElementById("status").innerText = "Gagal menyimpan ❌";
-  });
+  .then(() => status.innerText = "Data berhasil disimpan ✅")
+  .catch(() => status.innerText = "Gagal menyimpan ❌");
 }
 </script>
 
 </body>
 </html>
-
-
-
-
